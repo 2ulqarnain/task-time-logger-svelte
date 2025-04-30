@@ -3,5 +3,7 @@
 
 @theme {
 	--color-primary: #123458;
+	--color-sunset: #fe7743;
+	--color-sunset-light: #fe7f4d;
 	--color-bg: #d4c9be;
 }

@@ -6,15 +6,30 @@
 	let ticketNo = '';
 
 	const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-		if (!e.currentTarget.value.length) {
-			console.debug(ticketNo?.[e.currentTarget.id as any]);
-			e.currentTarget.previousElementSibling?.focus();
+		const currentElement = e.currentTarget;
+		const currentValue = currentElement.value;
+		const nextElement = e.currentTarget.nextElementSibling;
+		const previousElement = e.currentTarget.previousElementSibling;
+		const firstSiblingElement = e.currentTarget.parentElement?.firstElementChild;
+
+		if (!currentValue.length) {
+			ticketNo = ticketNo
+				.split('')
+				.filter((_, index) => {
+					index !== +currentElement.id;
+					debugger;
+				})
+				.join('');
+			ticketNo.length
+				? e.currentTarget.previousElementSibling?.focus()
+				: e.currentTarget.parentElement?.firstElementChild?.focus();
 			return;
 		}
-		const nextElement = e.currentTarget.nextElementSibling;
-		if (e.currentTarget.value.length > 1) e.currentTarget.value = e.currentTarget.value?.[0];
-		if (e.currentTarget.value) {
-			ticketNo += e.currentTarget.value;
+
+		if (currentValue.length > 1) e.currentTarget.value = currentValue?.[0];
+
+		if (currentValue) {
+			ticketNo += currentValue;
 			nextElement?.focus({ focusVisible: true });
 		}
 	};
@@ -23,24 +38,25 @@
 	const array = new Array(NUMBER_OF_CHARACTERS).fill(null);
 </script>
 
+{@debug ticketNo}
+
 <main class="flex h-screen items-center justify-center text-center">
 	<div class="flex flex-col gap-5">
 		<h1 class="text-2xl">Task Time Logger</h1>
 		<form>
-			<label class="grid grid-cols-[repeat(4,48px)] grid-rows-[auto_48px] gap-2">
-				<span class="col-span-4 basis-full text-neutral-500">Enter Ticker No.</span>
+			<div class="col-span-4 mb-2 basis-full text-neutral-500">Enter Ticker No.</div>
+			<label class="grid grid-cols-[repeat(3,48px)_72px] grid-rows-[auto_48px] gap-x-2">
 				{#each array as _, index}
 					<Input
 						id={index.toString()}
 						oninput={onInputChange}
-						className="h-full aspect-square w-full !p-0 text-center font-mono text-2xl"
+						className="!border-0 user-valid:bg-primary user-valid:text-bg h-full aspect-square w-full !p-0 text-center font-mono text-2xl"
+						required
 					/>
 				{/each}
-				<Button className="h-full">Add</Button>
+				<Button className="h-full font-bold">Add</Button>
 			</label>
 		</form>
-		{#if ticketNo}
-			<p>{ticketNo}</p>
-		{/if}
+		<p>{ticketNo}</p>
 	</div>
 </main>
