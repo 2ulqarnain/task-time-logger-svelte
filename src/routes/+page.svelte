@@ -4,6 +4,8 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import { returnFormattedDateTime } from '$lib/utils/helpers';
 	import type { ChangeEventHandler } from 'svelte/elements';
+	import { Toaster, toast } from 'svelte-sonner';
+	import { getAllTasks } from '$lib/services/apiService';
 
 	interface Task {
 		ticketNo: string;
@@ -33,7 +35,7 @@
 	};
 
 	const handleKeyDown = (e: KeyboardEvent & { currentTarget: HTMLInputElement }) => {
-		if (!e.code.includes('Digit')) e.preventDefault();
+		if (!(e.code.includes('Backspace') || e.code.includes('Digit'))) e.preventDefault();
 		switch (e.code) {
 			case 'Backspace':
 				if (!e.currentTarget.value) {
@@ -52,30 +54,37 @@
 	const NUMBER_OF_CHARACTERS = 3;
 	const array = new Array(NUMBER_OF_CHARACTERS).fill(null);
 
-	const handleClickAdd = (e: MouseEvent & { currentTarget: HTMLButtonElement }) => {
-		if (
-			ticketsAdded.find((ticket) => ticket.ticketNo === ticketNoString) ||
-			ticketNoString.length < 3 ||
-			ticketsAdded.length > 1
-		) {
+	const handleClickAdd = async (e: MouseEvent & { currentTarget: HTMLButtonElement }) => {
+		if (ticketsAdded.find((ticket) => ticket.ticketNo === ticketNoString)) {
+			toast.error('Ticket Already Added!');
+			e.preventDefault();
+		}
+		if (ticketNoString.length < 3) {
+			toast.error('Ticket # not complete!');
+			e.preventDefault();
+			return;
+		}
+		if (ticketsAdded.length > 1) {
+			toast.error('Two tickets already added!');
 			e.preventDefault();
 			return;
 		}
 
-		ticketsAdded.push({
-			ticketNo: ticketNoString,
-			title: 'Sample Title',
-			date: returnFormattedDateTime(new Date())
-		});
+		// ticketsAdded.push({
+		// 	ticketNo: ticketNoString,
+		// 	title: 'Sample Title',
+		// 	date: returnFormattedDateTime(new Date())
+		// });
 
 		for (let i = 0; i < ticketNo.length; i++) {
 			ticketNo[i] = '';
 			document.getElementById(`${i}`).value = '';
 		}
+
+		ticketsAdded = await getAllTasks();
 	};
 
 	const handleDeleteTaskListItem = (index: number) => {
-		console.log({ index });
 		const newTicketsList = [];
 		for (let i = 0; i < ticketsAdded.length; i++) {
 			if (i === index) continue;
@@ -86,6 +95,7 @@
 </script>
 
 <main class="grid h-screen grid-cols-[1fr_auto_1fr] items-center justify-items-center text-center">
+	<Toaster visibleToasts={1} richColors />
 	<div class="col-start-2 flex flex-col gap-5">
 		<h1 class="text-2xl">Task Time Logger</h1>
 		<form>
