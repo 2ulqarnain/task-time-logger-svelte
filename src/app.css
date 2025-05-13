@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+body {
+	@apply h-screen;
+}
+
+.gradient-purple {
+	background-image: linear-gradient(to right, transparent 70%, purple);
+}
+
+.gradient-purple:nth-child(even) {
+	background-image: linear-gradient(to right, transparent 70%, orange);
+}
+
+@theme {
+	--color-primary: #c3996b;
+	--color-secondary: #79b562;
+}
