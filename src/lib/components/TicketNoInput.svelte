@@ -40,12 +40,13 @@
 	};
 </script>
 
-<div class="relative flex h-12 gap-2">
+<div class="relative flex h-12 gap-2" id="ticketno-container">
 	{#each ticketNoCharArray as _, index}
 		<input
 			class={`aspect-square w-12 rounded-xl bg-zinc-700 text-center focus:outline-none ${index <= ticketNoCharArray.join('').length ? 'hover:bg-zinc-600' : 'pointer-events-none'}`}
 			maxlength="1"
 			id={`${index}`}
+			pattern="\d"
 			oninput={handleInputChange}
 			onkeydown={handleKeyDown}
 		/>

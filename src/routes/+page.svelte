@@ -1,12 +1,14 @@
 <script lang="ts">
 	import TicketNoInput from '$lib/components/TicketNoInput.svelte';
 	import TicketsListItem from '$lib/components/TicketsListItem.svelte';
+	import { postStartTicketTimeLog } from '$lib/services/api/tickets';
 	import { SvelteSet } from 'svelte/reactivity';
 
-	let addedTickets = $state(new SvelteSet());
+	let addedTickets = $state(new SvelteSet<string>());
 
-	const handleAddTicket = (ticketNo: string) => {
+	const handleAddTicket = async (ticketNo: string) => {
 		addedTickets.add(ticketNo);
+		postStartTicketTimeLog(ticketNo);
 	};
 </script>
 
