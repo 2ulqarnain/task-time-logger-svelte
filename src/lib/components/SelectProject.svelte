@@ -9,8 +9,8 @@
 	async function fetchDataFromApi() {
 		try {
 			const { error, data } = await getProjectsKey();
-			if (!error && data) {
-				projectsKey = data;
+			if (!error) {
+				projectsKey = Array.isArray(data) ? data : [];
 			}
 		} catch (error) {
 			console.error(error);

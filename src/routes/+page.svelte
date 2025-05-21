@@ -2,17 +2,31 @@
 	import SelectProject from '$lib/components/SelectProject.svelte';
 	import TicketNoInput from '$lib/components/TicketNoInput.svelte';
 	import TicketsListItem from '$lib/components/TicketsListItem.svelte';
-	import { postStartTicketTimeLog } from '$lib/services/api/tickets';
+	import { getAllTickets, postStartTicketTimeLog } from '$lib/services/api/tickets';
 	import { selectedProject } from '$lib/services/store/project.svelte';
-	import { SvelteSet } from 'svelte/reactivity';
+	import type { Ticket } from '$lib/types/entities';
+	import { onMount } from 'svelte';
+	import { SvelteMap } from 'svelte/reactivity';
 
-	let addedTickets = $state(new SvelteSet<string>());
+	let addedTickets = $state(new SvelteMap<Ticket['id'], Ticket>());
 
 	const handleAddTicket = async (ticketNo: string) => {
 		if (!selectedProject.key) return;
-		addedTickets.add(`${selectedProject.key}-${ticketNo}`);
-		postStartTicketTimeLog(ticketNo);
+		const ticketId = `${selectedProject.key}-${ticketNo}`;
+		postStartTicketTimeLog(ticketId);
+		const data = await getAllTickets();
+		if (!data.error) {
+			const currentTicket = data.data?.find((ticket) => ticket.id === ticketId);
+			currentTicket && addedTickets.set(ticketId, currentTicket);
+		}
 	};
+
+	onMount(async () => {
+		const data = await getAllTickets();
+		if (!data.error) {
+			data.data?.forEach((ticket) => addedTickets.set(ticket.id, ticket));
+		}
+	});
 </script>
 
 <main
@@ -26,8 +40,8 @@
 		<TicketNoInput ticketNoLength={3} handleAdd={handleAddTicket} />
 	</div>
 	<ul class="flex w-1/2 flex-col gap-2">
-		{#each addedTickets as ticket, index}
-			<TicketsListItem itemIndex={index + 1} ticketID={ticket} />
+		{#each addedTickets as [_, ticket], index}
+			<TicketsListItem itemIndex={index + 1} {ticket} />
 		{/each}
 	</ul>
 </main>
