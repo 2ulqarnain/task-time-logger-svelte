@@ -1,10 +1,10 @@
 import { PUBLIC_SERVER_BASE_URL } from '$env/static/public';
-import type { FetchDataParams, GenericApiResponse } from '$lib/types';
+import type { FetchDataParams, GenericApiResponse } from '$lib/types/api';
 
 export async function fetchData<T>(
 	endpoint: string,
 	{ method = 'GET', data = null, headers = {} }: FetchDataParams = {}
-): Promise<GenericApiResponse<T>> {
+): Promise<GenericApiResponse<T | null>> {
 	const config: RequestInit = {
 		method,
 		headers: {
@@ -24,8 +24,12 @@ export async function fetchData<T>(
 			const errorResponseMessage = await response.json();
 			return { error: true, message: errorResponseMessage, data: null };
 		}
-
-		const data = await response.json();
+		let data;
+		if (response.headers.get('Content-Type')?.includes('text/plain')) {
+			data = await response.text();
+		} else {
+			data = await response.json();
+		}
 
 		return { error: false, message: 'success', data };
 	} catch (error) {
