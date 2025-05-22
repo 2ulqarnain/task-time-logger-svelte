@@ -2,7 +2,11 @@
 	import SelectProject from '$lib/components/SelectProject.svelte';
 	import TicketNoInput from '$lib/components/TicketNoInput.svelte';
 	import TicketsListItem from '$lib/components/TicketsListItem.svelte';
-	import { getAllTickets, postStartTicketTimeLog } from '$lib/services/api/tickets';
+	import {
+		deleteTicketById,
+		getAllTickets,
+		postStartTicketTimeLog
+	} from '$lib/services/api/tickets';
 	import { selectedProject } from '$lib/services/store/project.svelte';
 	import type { Ticket } from '$lib/types/entities';
 	import { onMount } from 'svelte';
@@ -19,6 +23,12 @@
 			const currentTicket = data.data?.find((ticket) => ticket.id === ticketId);
 			currentTicket && addedTickets.set(ticketId, currentTicket);
 		}
+	};
+
+	const handleDeleteTicket = async (ticketId: string) => {
+		const data = await deleteTicketById(ticketId);
+		if (data.error) return;
+		addedTickets.delete(ticketId);
 	};
 
 	onMount(async () => {
@@ -41,7 +51,7 @@
 	</div>
 	<ul class="flex w-1/2 flex-col gap-2">
 		{#each addedTickets as [_, ticket], index}
-			<TicketsListItem itemIndex={index + 1} {ticket} />
+			<TicketsListItem itemIndex={index + 1} {ticket} onDeleteTicket={handleDeleteTicket} />
 		{/each}
 	</ul>
 </main>
