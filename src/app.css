@@ -15,4 +15,5 @@ body {
 @theme {
 	--color-primary: #c3996b;
 	--color-secondary: #79b562;
+	--color-danger-bg: #990000;
 }

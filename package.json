@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.511.0",
-		"bits-ui": "^1.4.8"
+		"bits-ui": "^1.4.8",
+		"date-fns": "^4.1.0"
 	}
 }

@@ -1,12 +1,13 @@
 <script lang="ts">
-	import type { Ticket } from '$lib/types/entities';
 	import type { FormEventHandler, KeyboardEventHandler, MouseEventHandler } from 'svelte/elements';
 
 	interface Props {
 		ticketNoLength: number;
 		handleAdd: (ticketNo: string) => void;
+		loading: boolean;
+		disabled?: boolean;
 	}
-	const { ticketNoLength: NO_OF_CHARACTERS, handleAdd }: Props = $props();
+	const { ticketNoLength: NO_OF_CHARACTERS, handleAdd, loading }: Props = $props();
 
 	let ticketNoCharArray = $state(new Array(NO_OF_CHARACTERS).fill(''));
 	let ticketNo = $derived(ticketNoCharArray.join(''));
@@ -43,7 +44,7 @@
 <div class="relative flex h-12 gap-2" id="ticketno-container">
 	{#each ticketNoCharArray as _, index}
 		<input
-			class={`aspect-square w-12 rounded-xl bg-zinc-700 text-center focus:outline-none ${index <= ticketNoCharArray.join('').length ? 'hover:bg-zinc-600' : 'pointer-events-none'}`}
+			class={`aspect-square w-12 rounded-xl border border-zinc-500 bg-zinc-700 text-center focus:outline-none ${index <= ticketNoCharArray.join('').length ? 'hover:bg-zinc-600' : 'pointer-events-none'}`}
 			maxlength="1"
 			id={`${index}`}
 			pattern="\d"
@@ -52,8 +53,11 @@
 		/>
 	{/each}
 	<button
-		class={`aspect-[2] h-full rounded-xl shadow-blue-200 outline-offset-1 outline-green-700 focus:outline-2 ${ticketNoCharArray.join('').length > 2 ? 'cursor-pointer bg-emerald-600 text-zinc-200 hover:bg-emerald-700' : 'pointer-events-none bg-zinc-700 text-zinc-500'}`}
+		class={`aspect-[2] h-full rounded-xl shadow-blue-200 outline-offset-1 outline-green-700 focus:outline-2 disabled:pointer-events-none disabled:bg-zinc-500 disabled:text-zinc-300 ${ticketNoCharArray.join('').length > 2 ? 'cursor-pointer bg-emerald-600 text-zinc-200 hover:bg-emerald-700' : 'pointer-events-none bg-zinc-700 text-zinc-500'}`}
 		onclick={handleAddButtonClick}
-		onkeydown={handleKeyDown}>Add</button
+		onkeydown={handleKeyDown}
+		disabled={loading}
 	>
+		{loading ? 'Loading...' : 'Start Time'}
+	</button>
 </div>
