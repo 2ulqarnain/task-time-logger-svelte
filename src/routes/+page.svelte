@@ -8,13 +8,13 @@
 		getAllTickets,
 		postStartTicketTimeLog
 	} from '$lib/services/api/tickets';
-	import { notification, selectedProject } from '$lib/services/store/project.svelte';
+	import { selectedProject } from '$lib/services/store/project.svelte';
 	import type { Ticket } from '$lib/types/entities';
 	import { notify } from '$lib/utils/helpers';
 	import { onMount } from 'svelte';
 	import { SvelteMap } from 'svelte/reactivity';
 
-	let addedTickets = $state(new SvelteMap<Ticket['id'], Ticket>());
+	let tickets = $state(new SvelteMap<Ticket['id'], Ticket>());
 	let isLoadingTasks = $state(false);
 
 	const handleAddTicket = async (ticketNo: string) => {
@@ -25,26 +25,26 @@
 		isLoadingTasks = true;
 		const ticketId = `${selectedProject.key}-${ticketNo}`;
 		postStartTicketTimeLog(ticketId);
-		const data = await getAllTickets();
+		const response = await getAllTickets();
 		isLoadingTasks = false;
-		if (!data.error) {
-			const currentTicket = data.data?.find((ticket) => ticket.id === ticketId);
-			currentTicket && addedTickets.set(ticketId, currentTicket);
+		if (!response.error) {
+			const currentTicket = response.data?.tasks?.find((ticket) => ticket.id === ticketId);
+			currentTicket && tickets.set(ticketId, currentTicket);
 		}
 	};
 
 	const handleDeleteTicket = async (ticketId: string) => {
 		const data = await deleteTicketById(ticketId);
 		if (data.error) return;
-		addedTickets.delete(ticketId);
+		tickets.delete(ticketId);
 	};
 
 	onMount(async () => {
 		isLoadingTasks = true;
-		const data = await getAllTickets();
+		const response = await getAllTickets();
 		isLoadingTasks = false;
-		if (!data.error) {
-			data.data?.forEach((ticket) => addedTickets.set(ticket.id, ticket));
+		if (!response.error) {
+			response.data?.tasks?.forEach((ticket) => tickets.set(ticket.id, ticket));
 		}
 	});
 </script>
@@ -64,6 +64,6 @@
 			loading={isLoadingTasks}
 		/>
 	</div>
-	<TicketsList loading={isLoadingTasks} tickets={addedTickets} {handleDeleteTicket} />
+	<TicketsList loading={isLoadingTasks} {handleDeleteTicket} {tickets} />
 	<Notification />
 </main>

@@ -1,10 +1,11 @@
 import { PUBLIC_SERVER_BASE_URL } from '$env/static/public';
 import type { FetchDataParams, GenericApiResponse } from '$lib/types/api';
 
-export async function fetchData<T>(
+export async function fetchData<T, D = undefined, M extends string = string>(
 	endpoint: string,
-	{ method = 'GET', data = null, headers = {} }: FetchDataParams = {}
+	params?: FetchDataParams<D, M>
 ): Promise<GenericApiResponse<T | null>> {
+	const { method, data, headers } = params || {};
 	const config: RequestInit = {
 		method,
 		headers: {
@@ -13,7 +14,7 @@ export async function fetchData<T>(
 		}
 	};
 
-	if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
+	if (data && ['POST', 'PUT', 'PATCH'].includes(method ?? 'GET')) {
 		config.body = JSON.stringify(data);
 	}
 
@@ -31,9 +32,9 @@ export async function fetchData<T>(
 			data = await response.json();
 		}
 
-		return { error: false, message: 'success', data };
+		return data;
 	} catch (error) {
 		console.error('fetchData error:', error);
-		throw error; // Re-throw for the caller to handle
+		throw error;
 	}
 }

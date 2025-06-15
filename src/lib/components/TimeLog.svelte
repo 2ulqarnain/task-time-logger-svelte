@@ -9,6 +9,4 @@
 	let ticketDuration = formatTicketDuration(new Date(startedOn));
 </script>
 
-<div class="flex items-center justify-end">
-	<code class="text-xs text-zinc-400">{ticketDuration}</code>
-</div>
+<code class="text-xs text-zinc-400">{ticketDuration}</code>
