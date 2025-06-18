@@ -9,9 +9,10 @@
 
 <div class="grid h-full">
 	<button
-		class="grid aspect-square cursor-pointer place-items-center rounded-lg border border-red-400 bg-red-600/20 stroke-red-200 transition-transform hover:scale-110 hover:bg-red-400 hover:stroke-white"
+		class="flex h-8 w-fit cursor-pointer items-center justify-center gap-2 rounded-full border border-red-400 bg-red-600/20 stroke-red-200 px-4 hover:bg-red-400 hover:stroke-white"
 		onclick={handleDeleteTicket}
 	>
-		<Trash2Icon class="size-5 stroke-inherit" />
+		<span>Delete</span>
+		<Trash2Icon class="size-4 stroke-inherit" />
 	</button>
 </div>

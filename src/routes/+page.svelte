@@ -50,10 +50,11 @@
 </script>
 
 <main
-	class="grid h-full grid-cols-3 items-center justify-items-center bg-zinc-800 text-center text-zinc-300"
+	class="grid h-full grid-cols-3 items-center justify-items-center bg-zinc-800 p-10 text-center text-zinc-300"
 >
 	<div class="absolute top-5 left-5">
-		<SelectProject />
+		<!-- <SelectProject /> -->
+		{selectedProject.key}
 	</div>
 	<div class="col-start-2 flex flex-col gap-5">
 		<h1 class="text-primary text-xl">Ticket Time Logger</h1>

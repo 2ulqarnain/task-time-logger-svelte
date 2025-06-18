@@ -3,4 +3,5 @@ export interface Ticket {
 	title?: string;
 	startedOn: string;
 	age: string;
+	status: string;
 }

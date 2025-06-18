@@ -14,7 +14,7 @@
 {#if loading}
 	<div class="w-full text-center text-white">loading...</div>
 {:else}
-	<ul class="flex w-1/2 flex-col gap-2">
+	<ul class="flex w-full flex-col gap-2">
 		{#each tickets as [_, ticket], index}
 			<TicketsListItem itemIndex={index + 1} {ticket} onDeleteTicket={handleDeleteTicket} />
 		{/each}

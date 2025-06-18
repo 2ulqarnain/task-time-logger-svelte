@@ -29,7 +29,7 @@
 	id="select-project"
 	onchange={handleChange}
 	value={selectedProject.key ?? ''}
-	class="rounded-lg border border-zinc-300 text-zinc-300"
+	class="rounded-lg border border-zinc-300 bg-zinc-600 text-zinc-300 shadow-none"
 >
 	<option value="">--Please choose an option--</option>
 	{#each projectsKey as projectKey}
