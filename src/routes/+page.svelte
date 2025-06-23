@@ -24,7 +24,7 @@
 		}
 		isLoadingTasks = true;
 		const ticketId = `${selectedProject.key}-${ticketNo}`;
-		postStartTicketTimeLog(ticketId);
+		await postStartTicketTimeLog(ticketId);
 		const response = await getAllTickets();
 		isLoadingTasks = false;
 		if (!response.error) {

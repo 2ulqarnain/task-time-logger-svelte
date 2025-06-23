@@ -19,7 +19,10 @@
 		class="row-span-2 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_1fr] items-center gap-2 rounded-2xl bg-zinc-600 p-3 shadow-2xl shadow-black/20"
 	>
 		<code class="text-stone-400">{ticket.id}</code>
-		<span class="w-fit rounded-xl px-2 {ticketStatusColorMap[ticket.status]}">{ticket.status}</span>
+		<span
+			class="w-fit rounded-xl px-2"
+			style="background-color:{ticketStatusColorMap[ticket.status]};">{ticket.status}</span
+		>
 		<TimeLog className="col-start-3" startedOn={ticket.startedOn} />
 		<p class="col-span-3 row-start-2 text-left">{ticket.title}</p>
 		<StopTicketTimeButton handleStopTicketTime={() => console.log('stiopoped')} />
