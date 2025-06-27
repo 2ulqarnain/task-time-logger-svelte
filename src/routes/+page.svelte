@@ -2,6 +2,7 @@
 	import TicketsList from '$lib/components/AddedTickets/ticketsList.svelte';
 	import SelectProject from '$lib/components/SelectProject.svelte';
 	import TicketNoInput from '$lib/components/TicketNoInput.svelte';
+	import TicketNoLengthSetup from '$lib/components/TicketNoLengthSetup.svelte';
 	import Notification from '$lib/components/ui/notification/notification.svelte';
 	import {
 		deleteTicketById,
@@ -14,8 +15,10 @@
 	import { onMount } from 'svelte';
 	import { SvelteMap } from 'svelte/reactivity';
 
+	// STATES
 	let tickets = $state(new SvelteMap<Ticket['id'], Ticket>());
 	let isLoadingTasks = $state(false);
+	let ticketIdLength = $state(3);
 
 	const handleAddTicket = async (ticketNo: string) => {
 		if (!selectedProject.key) {
@@ -50,17 +53,20 @@
 </script>
 
 <main
-	class="grid h-full grid-cols-3 items-center justify-items-center bg-zinc-800 p-10 text-center text-zinc-300"
+	class="text-foreground grid h-full grid-cols-3 items-center justify-items-center bg-gray-200 px-10 text-center"
 >
-	<div class="absolute top-5 left-5">
-		<!-- <SelectProject /> -->
-		{selectedProject.key}
+	<div class="flex size-full flex-col gap-5 text-left">
+		<div>
+			<!-- <SelectProject /> -->
+			{selectedProject.key}
+		</div>
+		<TicketNoLengthSetup bind:chars={ticketIdLength} />
 	</div>
 	<div class="col-start-2 flex flex-col gap-5">
 		<h1 class="text-primary text-xl">Ticket Time Logger</h1>
 		<TicketNoInput
 			disabled={!selectedProject.key}
-			ticketNoLength={3}
+			ticketNoLength={ticketIdLength}
 			handleAdd={handleAddTicket}
 			loading={isLoadingTasks}
 		/>

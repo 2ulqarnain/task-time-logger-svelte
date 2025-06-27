@@ -9,10 +9,10 @@
 
 <div class="grid h-full">
 	<button
-		class="flex h-8 w-fit cursor-pointer items-center justify-center gap-2 rounded-full border border-red-400 bg-red-600/20 stroke-red-200 px-4 hover:bg-red-400 hover:stroke-white"
+		class="hover:bg-danger-bg hover:text-foreground-light flex cursor-pointer items-center-safe gap-1 bg-neutral-400/50 p-1 px-2"
 		onclick={handleDeleteTicket}
 	>
 		<span>Delete</span>
-		<Trash2Icon class="size-4 stroke-inherit" />
+		<Trash2Icon class="size-4 stroke-current" />
 	</button>
 </div>
