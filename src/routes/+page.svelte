@@ -53,12 +53,17 @@
 </script>
 
 <main
-	class="text-foreground grid h-full grid-cols-3 items-center justify-items-center bg-gray-200 px-10 text-center"
+	class="text-foreground grid h-full grid-cols-3 items-center justify-items-center bg-gray-200 pr-10 text-center"
 >
-	<div class="flex size-full flex-col gap-5 text-left">
-		<div>
-			<!-- <SelectProject /> -->
-			{selectedProject.key}
+	<div class="flex size-full flex-col gap-10 p-10 text-left">
+		<div
+			class="bg-background-muted/40 relative flex w-32 items-center justify-between rounded-xl p-2"
+		>
+			<span class="text-foreground font-sans">Project:</span>
+			<span
+				class="bg-primary text-foreground-light absolute right-0 grid aspect-square size-16 translate-x-1/2 place-items-center rounded-full text-2xl leading-0 font-bold"
+				>{selectedProject.key}</span
+			>
 		</div>
 		<TicketNoLengthSetup bind:chars={ticketIdLength} />
 	</div>

@@ -59,12 +59,13 @@
 <div class="relative flex h-12 gap-2" id="ticketno-container">
 	{#each ticketNoCharArray as _, index}
 		<input
-			class={`ticketIdInput aspect-square w-12 rounded-xl border border-zinc-400 bg-zinc-300 text-center focus:outline-none ${index > ticketNoCharArray.join('').length ? 'pointer-events-none' : ''}`}
+			class={`ticketIdInput valid:bg-primary valid:text-foreground-light aspect-square w-12 rounded-xl border border-zinc-400 bg-zinc-300 text-center focus:outline-none ${index > ticketNoCharArray.join('').length ? 'pointer-events-none' : ''}`}
 			maxlength="1"
 			id={`${index}`}
 			pattern="\d"
 			oninput={handleInputChange}
 			onkeydown={handleKeyDown}
+			required
 		/>
 	{/each}
 	<button
