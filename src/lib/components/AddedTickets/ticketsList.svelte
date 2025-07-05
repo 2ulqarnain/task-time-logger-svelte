@@ -2,6 +2,7 @@
 	import type { Ticket } from '$lib/types/entities';
 	import type { SvelteMap } from 'svelte/reactivity';
 	import TicketsListItem from './TicketsListItem.svelte';
+	import Asterik from '$lib/components/loaders/asterik.svelte';
 
 	interface Props {
 		loading: boolean;
@@ -12,7 +13,7 @@
 </script>
 
 {#if loading}
-	<div class="w-full text-center text-white">loading...</div>
+	<div class="w-full text-center text-white"><Asterik /></div>
 {:else}
 	<ul class="flex w-full flex-col gap-2">
 		{#each tickets as [_, ticket], index}

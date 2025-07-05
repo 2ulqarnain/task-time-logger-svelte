@@ -53,7 +53,7 @@
 </script>
 
 <main
-	class="text-foreground grid h-full grid-cols-3 items-center justify-items-center bg-gray-200 pr-10 text-center"
+	class="text-foreground bg-background grid h-full grid-cols-3 items-center justify-items-center pr-10 text-center"
 >
 	<div class="flex size-full flex-col gap-10 p-10 text-left">
 		<div
