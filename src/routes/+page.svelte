@@ -53,7 +53,7 @@
 </script>
 
 <main
-	class="text-foreground grid h-full grid-cols-3 items-center justify-items-center pr-10 text-center"
+	class="text-foreground grid h-full grid-cols-1 items-center justify-items-center text-center lg:grid-cols-3 lg:pr-10"
 >
 	<div class="bg-pattern fixed -z-20 h-screen w-screen"></div>
 	<div class="flex size-full flex-col gap-10 p-10 text-left">
@@ -68,7 +68,7 @@
 		</div>
 		<TicketNoLengthSetup bind:chars={ticketIdLength} />
 	</div>
-	<div class="col-start-2 flex flex-col gap-5">
+	<div class="flex flex-col gap-5 lg:col-start-2">
 		<h1 class="text-primary text-xl">Ticket Time Logger</h1>
 		<TicketNoInput
 			disabled={!selectedProject.key}
