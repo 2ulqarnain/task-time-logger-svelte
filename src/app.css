@@ -1,19 +1,19 @@
 @import 'tailwindcss';
 
 :root {
-	--primary: oklch(44.22% 0.102 254.51);
-	--foreground: oklch(40% 0 0);
-	--background: oklch(80% 0 0);
-	--bg-content: oklch(87.2% 0.01 258.338);
-	--bg-muted: oklch(75.1% 0.027 264.364);
+	--primary: #273f4f;
+	--foreground: oklch(80% 0 0);
+	--background: #d7d7d7;
+	--bg-content: #dfdfdf;
+	--bg-muted: oklch(0.6 0.027 264.364);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--primary: oklch(0.55 0.102 254.51);
-		--foreground: oklch(80% 0 0);
-		--background: oklch(30% 0 0);
-		--bg-content: oklch(0.4 0.01 258.338);
+		--primary: #273f4f;
+		--foreground: oklch(60% 0 0);
+		--background: #c7c7c7;
+		--bg-content: #dfdfdf;
 		--bg-muted: oklch(0.6 0.027 264.364);
 	}
 }
@@ -33,11 +33,19 @@ body {
 @theme {
 	--color-primary: var(--primary);
 	--color-secondary: #79b562;
-	--color-danger-bg: oklch(50% 0.237 25.331);
+	--color-danger-bg: oklch(40% 0.237 25.331);
 	--color-foreground: var(--foreground);
 	--color-foreground-muted: oklch(0.65 0 0);
 	--color-foreground-light: oklch(0.88 0 0);
 	--color-background: var(--background);
 	--color-background-content: var(--bg-content);
 	--color-background-muted: var(--bg-muted);
+}
+
+.bg-pattern {
+	background-color: #c7c7c7;
+	opacity: 0.4;
+	background-image:
+		repeating-radial-gradient(circle at 0 0, transparent 0, #c7c7c7 4px),
+		repeating-linear-gradient(#273f4f55, #273f4f);
 }

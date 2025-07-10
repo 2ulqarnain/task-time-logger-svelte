@@ -59,7 +59,7 @@
 <div class="relative flex h-12 gap-2" id="ticketno-container">
 	{#each ticketNoCharArray as _, index}
 		<input
-			class={`ticketIdInput valid:bg-primary valid:text-foreground-light bg-background-content aspect-square w-12 rounded-xl border border-zinc-400 text-center focus:outline-none ${index > ticketNoCharArray.join('').length ? 'pointer-events-none' : ''}`}
+			class={`ticketIdInput valid:bg-primary valid:text-foreground-light bg-background-content aspect-square w-12 rounded-xl border border-zinc-400 text-center shadow-xl focus:outline-none ${index > ticketNoCharArray.join('').length ? 'pointer-events-none' : ''}`}
 			maxlength="1"
 			id={`${index}`}
 			pattern="\d"
@@ -69,7 +69,7 @@
 		/>
 	{/each}
 	<button
-		class={`disabled:bg-background-muted aspect-[2] h-full cursor-pointer rounded-xl bg-emerald-600 text-zinc-200 outline-offset-1 outline-green-700 hover:bg-emerald-700 focus:outline-2 disabled:pointer-events-none disabled:text-zinc-300`}
+		class={`disabled:bg-background-muted aspect-[2] h-full cursor-pointer rounded-xl bg-emerald-600 text-zinc-200 shadow-xl outline-offset-1 outline-green-700 hover:bg-emerald-700 focus:outline-2 disabled:pointer-events-none disabled:text-zinc-300`}
 		onclick={handleAddButtonClick}
 		onkeydown={handleKeyDown}
 		disabled={loading || ticketNoCharArray.join('').length < NO_OF_CHARACTERS}

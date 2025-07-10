@@ -25,10 +25,21 @@
 				style="background-color:{ticketStatusColorMap[ticket.status] ?? 'gray'};"
 				>{ticket.status}</span
 			>
-			<TimeLog className="ml-auto" startedOn={ticket.startedOn} />
+			<TimeLog className="ml-auto" minutes={ticket.duration} />
 		</div>
 		<p class="line-clamp-1 px-2 text-left">{ticket.title}</p>
-		<div class="bg-background-muted/30 border-background-muted flex justify-end border-t">
+		<div
+			class="bg-background-muted/30 border-background-muted flex items-center justify-end border-t p-1 text-sm text-neutral-500"
+		>
+			<i class="mr-auto ml-5">
+				<span class="font-medium">Started On:</span>
+				<span class="text-primary"
+					>{Intl.DateTimeFormat('en-pk', {
+						dateStyle: 'full',
+						timeStyle: 'medium'
+					}).format(new Date(ticket.startedOn))}</span
+				>
+			</i>
 			<DeleteTicketButton handleDeleteTicket={() => onDeleteTicket(ticket.id)} />
 		</div>
 	</div>

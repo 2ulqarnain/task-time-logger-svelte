@@ -9,7 +9,9 @@
 	};
 </script>
 
-<div class="bg-background-muted/40 relative flex w-32 items-center justify-between rounded-xl p-2">
+<div
+	class="bg-background text-primary relative flex w-32 items-center justify-between rounded-xl p-2 shadow-xl"
+>
 	<span>Characters:</span>
 	<code
 		class="bg-primary text-foreground-light absolute right-0 grid aspect-square size-16 translate-x-1/2 place-items-center rounded-full text-3xl leading-0"

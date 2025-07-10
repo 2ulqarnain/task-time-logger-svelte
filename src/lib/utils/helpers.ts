@@ -2,23 +2,21 @@ import { notification } from '$lib/services/store/project.svelte';
 import type { Notification } from '$lib/types/project';
 import { differenceInMinutes, differenceInDays } from 'date-fns';
 
-export function formatTicketDuration(startDate: Date) {
-	const now = new Date();
-	const totalMinutes = differenceInMinutes(now, startDate);
-	const days = differenceInDays(now, startDate);
-	const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
-	const minutes = totalMinutes % 60;
+export function formatTicketDuration(minutes: number) {
+	if (minutes <= 0) {
+		return '0m';
+	}
 
-	if (days > 0) {
-		return `${days}d ${hours}h ${minutes}m`;
+	const hours = Math.floor(minutes / 60);
+	const remainingMinutes = minutes % 60;
+
+	if (hours === 0) {
+		return `${remainingMinutes}m`;
+	} else if (remainingMinutes === 0) {
+		return `${hours}h`;
+	} else {
+		return `${hours}h ${remainingMinutes}m`;
 	}
-	if (hours > 0) {
-		return `${hours}h ${minutes}m`;
-	}
-	if (minutes > 0) {
-		return `${minutes}m`;
-	}
-	return 'just now';
 }
 
 export function notify(message: Notification['message'], type: Notification['type'] = 'default') {
