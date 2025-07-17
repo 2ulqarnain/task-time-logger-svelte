@@ -1,25 +1,39 @@
 @import 'tailwindcss';
 
 :root {
-	--primary: #273f4f;
-	--foreground: oklch(80% 0 0);
-	--background: #d7d7d7;
+	--primary: #34252f;
+	--secondary: #273f4f;
+	--foreground: #519872;
+	--background: #bec5ad;
+	--eggplant: #574b53;
 	--bg-content: #dfdfdf;
 	--bg-muted: oklch(0.6 0.027 264.364);
+	--card-background: #3b5249;
+	--card-background-light: #4c6156;
+	--card-border: #859382;
+	--card-foreground: #d7d7d7;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
 	:root {
-		--primary: #273f4f;
+		--primary: #fe7743;
+		--secondary: #27374d;
 		--foreground: oklch(60% 0 0);
-		--background: #c7c7c7;
+		--background: #273f4f;
 		--bg-content: #dfdfdf;
 		--bg-muted: oklch(0.6 0.027 264.364);
+		--card-background: #555;
+		--card-border: #526d82;
+		--card-foreground: #eee;
 	}
-}
+} */
 
 body {
 	@apply h-screen;
+}
+
+button {
+	@apply cursor-pointer;
 }
 
 .gradient-purple {
@@ -32,7 +46,8 @@ body {
 
 @theme {
 	--color-primary: var(--primary);
-	--color-secondary: #79b562;
+	--color-secondary: var(--secondary);
+	--color-eggplant: var(--eggplant);
 	--color-danger-bg: oklch(40% 0.237 25.331);
 	--color-foreground: var(--foreground);
 	--color-foreground-muted: oklch(0.65 0 0);
@@ -40,6 +55,10 @@ body {
 	--color-background: var(--background);
 	--color-background-content: var(--bg-content);
 	--color-background-muted: var(--bg-muted);
+	--color-card-background: var(--card-background);
+	--color-card-background-light: var(--card-background-light);
+	--color-card-foreground: var(--card-foreground);
+	--color-card-border: var(--card-border);
 }
 
 .bg-pattern {
